@@ -1542,6 +1542,12 @@ void encodeCableCheckResponse(void) {
     } else {
       dinDoc.V2G_Message.Body.CableCheckRes.EVSEProcessing=dinEVSEProcessingType_Finished;
     }
+    // added EVSEStatusCode setting 
+    dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEStatusCode = getIntParam(1); /* Get EVSEStatusCode from second parameter */
+    dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus = dinisolationLevelType_Valid;
+    dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus_isUsed = 1;
+    dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.NotificationMaxDelay = 0;
+    dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSENotification = dinEVSENotificationType_None;
     prepareGlobalStream();
     g_errn = encode_dinExiDocument(&global_stream1, &dinDoc);
     printGlobalStream();
